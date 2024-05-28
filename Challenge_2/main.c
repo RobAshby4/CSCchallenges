@@ -44,34 +44,34 @@ void run_debug(char** strings) {
             strings[i][j] = '\0';
         }
         // generate it
-        strings[i][0] = riddles_primary[5][20 + i];  // h
-        strings[i][1] = riddles_primary[7][9 + i];   // o
-        strings[i][2] = riddles_primary[4][25 + i];  // b
-        strings[i][3] = riddles_primary[3][2 + i];   // g
-        strings[i][4] = riddles_primary[7][9 + i];   // o
-        strings[i][5] = riddles_primary[7][8 + i];   // b
-        strings[i][6] = riddles_primary[1][20 + i];  // l
-        strings[i][7] = riddles_primary[1][19 + i];  // i
-        strings[i][8] = riddles_primary[4][29 + i];  // n
-        strings[i][9] = riddles_primary[12][3 + i];  // .
-        strings[i][10] = riddles_primary[6][19 + i]; // t
-        strings[i][11] = riddles_primary[5][21 + i]; // e
-        strings[i][12] = riddles_primary[0][53 + i]; // c
-        strings[i][13] = riddles_primary[4][36 + i]; // h
-        strings[i][14] = riddles_primary[4][29 + i]; // n
-        strings[i][15] = riddles_primary[7][9 + i];  // o
-        strings[i][16] = riddles_primary[1][20 + i]; // l
-        strings[i][17] = riddles_primary[10][18 + i];// o
-        strings[i][18] = riddles_primary[9][26 + i]; // g
-        strings[i][19] = riddles_primary[6][8 + i];  // y
-        strings[i][20] = riddles_primary[12][11 + i];// /
-        strings[i][21] = riddles_primary[8][11 + i]; // r
-        strings[i][22] = riddles_primary[1][19 + i]; // i
-        strings[i][23] = riddles_primary[12][13 + i];// z
-        strings[i][24] = riddles_primary[12][13 + i];// z
-        strings[i][25] = riddles_primary[1][20 + i]; // l
-        strings[i][26] = riddles_primary[11][22 + i];// e
-        strings[i][27] = riddles_primary[9][28 + i]; // r
+        strings[i][0] = riddles_primary[5][20 + i];
+        strings[i][1] = riddles_primary[7][9 + i];
+        strings[i][2] = riddles_primary[4][25 + i];
+        strings[i][3] = riddles_primary[3][2 + i];
+        strings[i][4] = riddles_primary[7][9 + i];
+        strings[i][5] = riddles_primary[7][8 + i];
+        strings[i][6] = riddles_primary[1][20 + i];
+        strings[i][7] = riddles_primary[1][19 + i];
+        strings[i][8] = riddles_primary[4][29 + i];
+        strings[i][9] = riddles_primary[12][3 + i];
+        strings[i][10] = riddles_primary[6][19 + i];
+        strings[i][11] = riddles_primary[5][21 + i];
+        strings[i][12] = riddles_primary[0][53 + i];
+        strings[i][13] = riddles_primary[4][36 + i];
+        strings[i][14] = riddles_primary[4][29 + i];
+        strings[i][15] = riddles_primary[7][9 + i];
+        strings[i][16] = riddles_primary[1][20 + i];
+        strings[i][17] = riddles_primary[10][18 + i];
+        strings[i][18] = riddles_primary[9][26 + i];
+        strings[i][19] = riddles_primary[6][8 + i];
+        strings[i][20] = riddles_primary[12][11 + i];
+        strings[i][21] = riddles_primary[8][11 + i];
+        strings[i][22] = riddles_primary[1][19 + i];
+        strings[i][23] = riddles_primary[12][13 + i];
+        strings[i][24] = riddles_primary[12][13 + i];
+        strings[i][25] = riddles_primary[1][20 + i];
+        strings[i][26] = riddles_primary[11][22 + i];
+        strings[i][27] = riddles_primary[9][28 + i];
     }
 }
 
