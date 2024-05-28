@@ -1,9 +1,11 @@
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <time.h>
-#include "helper.h"
 #include <string.h>
+#include "helper.h"
+#include "aes.h"
 
 char* innocuous_copy1 = NULL;
 char* innocuous_copy2 = NULL;
@@ -29,11 +31,28 @@ char* riddles_primary[] = {
     "|?#!@&.*^%$-+_/=z<>:;{}[]()~`'"
 };
 
+void hexidecimal_to_ascii(uint8_t* data, char* ascii) {
+    for (int i = 0; i < 256; i++) {
+        sprintf(&(ascii[i]), "%c", data[i]);
+    }
+}
+
+
 void run_prog() {
     time_t t;
     srand((unsigned) time(&t));
     int riddle_idx = rand() % 12;
     printf("%s\n", riddles_primary[riddle_idx]);
+}
+
+void print_hex(uint8_t *data, size_t len) {
+    for (size_t i = 0; i < len; ++i) {
+        printf("%02x ", data[i]);
+    }
+    printf("\n");
+    char ascii[256] = {'\0'};
+    hexidecimal_to_ascii(data, ascii);
+    printf("%s\n", ascii);
 }
 
 void run_debug(char** strings) {
@@ -86,16 +105,24 @@ void download_url(char* url) {
         printf("Riddle has been downloaded into %s \n", outputFileName);
 }
 
-void read_riddle(char* riddle_buff) {
+void read_riddle(uint8_t* riddle_buff) {
     FILE* file = fopen("riddle_me_this", "r");
     if (file == NULL) {
         printf("Error opening file\n");
         exit(EXIT_FAILURE);
     }
-    while (fgets(riddle_buff, 2048, file) != NULL) {
-        int term = strlen(riddle_buff);
-        riddle_buff[term - 1] = '\0';
+    fread(riddle_buff, 1, 256, file);
+    fclose(file);
+}
+
+void write_riddle(uint8_t* riddle_buff) {
+    FILE* file = fopen("riddle_me_this", "w+");
+    if (file == NULL) {
+        printf("Error opening file\n");
+        exit(EXIT_FAILURE);
     }
+    fwrite(riddle_buff, 1, 256, file);
+    fclose(file);
 }
 
 void run_hotload(char* url) {
@@ -106,13 +133,38 @@ void run_hotload(char* url) {
     } else {
         download_url(url);
     }
-    char riddle_buff[2048];
-    for (int i = 0; i < 2048; i++) {
-        riddle_buff[i] = '\0';
+    printf("I come first to tell you, my last wish, four years I have toiled. Oh my life is a riddle.\n");
+    printf("solution: ");
+    struct AES_ctx ctx;
+    uint8_t key[32];
+    for (int i = 0; i < 32; i++) {
+        key[i] = '\0';
     }
-    read_riddle(riddle_buff);
-    printf("%s\n", riddle_buff);
+    char* key_str = (char*) malloc(32 * sizeof(char));
+    for (int i = 0; i < 32; i++) {
+        key_str[i] = '\0';
+    }
+    size_t key_len = 32;
+    getline(&key_str, &key_len, stdin);
+    for (int i = 0; i < 32; i++) {
+        key[i] = (uint8_t) key_str[i];
+    } 
+    uint8_t output1[256] = {'\0'};
+    uint8_t output2[256] = {'\0'};
+    //strncpy((char*) output1, "have a nice summer", strlen("have a nice summer"));
+    AES_init_ctx(&ctx, key);
+    //AES_ECB_encrypt(&ctx, output1);
+    //print_hex(output1, 256);
+
+    printf("\n");
+    read_riddle(output2);
+
+    print_hex(output2, 256);
+    printf("\n");
+    AES_ECB_decrypt(&ctx, output2);
+    print_hex(output2, 256);
 }
+
 
 int main(int argc, char** argv) {
     int flags, opt;
