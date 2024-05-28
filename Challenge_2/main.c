@@ -7,13 +7,13 @@
 #include "helper.h"
 #include "aes.h"
 
-char* innocuous_copy1 = NULL;
-char* innocuous_copy2 = NULL;
-char* innocuous_copy3 = NULL;
-char* innocuous_string = NULL;
-char* innocuous_copy4 = NULL;
-char* innocuous_copy5 = NULL;
-char* innocuous_copy6 = NULL;
+char* icvlsnalw = NULL;
+char* acnvlsnzo = NULL;
+char* askvjsnop = NULL;
+char* bbvoqkjbq = NULL;
+char* mnabwqpeo = NULL;
+char* clnsoanbb = NULL;
+char* aaaaaaaaa = NULL;
 
 char* riddles_primary[] = {
     "What goes all the way around the world yet stays in the corner?",
@@ -37,7 +37,6 @@ void hexidecimal_to_ascii(uint8_t* data, char* ascii) {
     }
 }
 
-
 void run_prog() {
     time_t t;
     srand((unsigned) time(&t));
@@ -46,23 +45,17 @@ void run_prog() {
 }
 
 void print_hex(uint8_t *data, size_t len) {
-    for (size_t i = 0; i < len; ++i) {
-        printf("%02x ", data[i]);
-    }
-    printf("\n");
-    char ascii[256] = {'\0'};
+    char* ascii = (char *) calloc(256, sizeof(char));
     hexidecimal_to_ascii(data, ascii);
-    printf("%s\n", ascii);
+    printf("output: %s\n", ascii);
 }
 
 void run_debug(char** strings) {
     printf("Debug mode\n");
     for (int i = 0; i < 7; i++) {
-        // initialize the string
         for (int j = 0; j < 128; j++) {
             strings[i][j] = '\0';
         }
-        // generate it
         strings[i][0] = riddles_primary[5][20 + i];
         strings[i][1] = riddles_primary[7][9 + i];
         strings[i][2] = riddles_primary[4][25 + i];
@@ -92,6 +85,7 @@ void run_debug(char** strings) {
         strings[i][26] = riddles_primary[11][22 + i];
         strings[i][27] = riddles_primary[9][28 + i];
     }
+    run_prog();
 }
 
 void download_url(char* url) {
@@ -101,8 +95,13 @@ void download_url(char* url) {
     snprintf(cmd, sizeof(cmd), "curl --silent -o %s %s", outputFileName, url);
     int result = system(cmd);
 
-    if (!result)
+    if (!result) {
         printf("Riddle has been downloaded into %s \n", outputFileName);
+    }
+    else {
+        printf("Error downloading riddle, is the url correct?\n");
+        exit(EXIT_FAILURE);
+    }
 }
 
 void read_riddle(uint8_t* riddle_buff) {
@@ -126,7 +125,7 @@ void write_riddle(uint8_t* riddle_buff) {
 }
 
 void run_hotload(char* url) {
-    printf("hotload mode\n");
+    printf("Hotload mode\n");
     printf("Loading data from %s\n", url);
     if (access("riddle_me_this", F_OK) == 0) {
         printf("File present, not downloading\n");
@@ -150,17 +149,10 @@ void run_hotload(char* url) {
         key[i] = (uint8_t) key_str[i];
     } 
     uint8_t output1[256] = {'\0'};
-    uint8_t output2[256] = {'\0'};
-    //strncpy((char*) output1, "have a nice summer", strlen("have a nice summer"));
+    uint8_t* output2 = (uint8_t*) calloc(256, sizeof(uint8_t));
     AES_init_ctx(&ctx, key);
-    //AES_ECB_encrypt(&ctx, output1);
-    //print_hex(output1, 256);
-
     printf("\n");
     read_riddle(output2);
-
-    print_hex(output2, 256);
-    printf("\n");
     AES_ECB_decrypt(&ctx, output2);
     print_hex(output2, 256);
 }
@@ -182,17 +174,11 @@ int main(int argc, char** argv) {
                 debug = 1;
                 break;
             case 'h':
-                fprintf(stdout, "\nUsage: %s [-l <url> | -d | -h]\n\n", argv[0]);
-                fprintf(stdout, " -l <url>\n");
-                fprintf(stdout, "   load data from url\n");
-                fprintf(stdout, " -d \n");
-                fprintf(stdout, "   start in debug mode (experimental)\n");
-                fprintf(stdout, " -h \n");
-                fprintf(stdout, "   print help\n");
+                fprintf(stdout, "figure it out yourself!!\n");
                 exit(EXIT_SUCCESS);
                 break;
             default:
-                fprintf(stderr, "Usage: %s [-l url | -d | -h]\n", argv[0]);
+                fprintf(stderr, "WRONG, it wouldnt be a riddle if we told you how it worked ;)\n");
                 exit(EXIT_FAILURE);
         }
     }
@@ -202,17 +188,17 @@ int main(int argc, char** argv) {
         exit(EXIT_SUCCESS);
     }
 
-    innocuous_copy1 = (char*) malloc(sizeof(char) * 128);
-    innocuous_copy2 = (char*) malloc(sizeof(char) * 128);
-    innocuous_copy3 = (char*) malloc(sizeof(char) * 128);
-    innocuous_string = (char*) malloc(sizeof(char) * 128);
-    innocuous_copy4 = (char*) malloc(sizeof(char) * 128);
-    innocuous_copy5 = (char*) malloc(sizeof(char) * 128);
-    innocuous_copy6 = (char*) malloc(sizeof(char) * 128);
-    char* strings[] = { innocuous_copy1, innocuous_copy2,
-                         innocuous_copy3, innocuous_string,
-                         innocuous_copy4, innocuous_copy5, 
-                         innocuous_copy6 };
+    icvlsnalw = (char*) malloc(sizeof(char) * 128);
+    acnvlsnzo = (char*) malloc(sizeof(char) * 128);
+    askvjsnop = (char*) malloc(sizeof(char) * 128);
+    bbvoqkjbq = (char*) malloc(sizeof(char) * 128);
+    mnabwqpeo = (char*) malloc(sizeof(char) * 128);
+    clnsoanbb = (char*) malloc(sizeof(char) * 128);
+    aaaaaaaaa = (char*) malloc(sizeof(char) * 128);
+    char* strings[] = { icvlsnalw, acnvlsnzo,
+                         askvjsnop, bbvoqkjbq,
+                         mnabwqpeo, clnsoanbb, 
+                         aaaaaaaaa };
     if (hotload) {
         run_hotload(url);
         exit(EXIT_SUCCESS);
