@@ -86,6 +86,18 @@ void download_url(char* url) {
         printf("Riddle has been downloaded into %s \n", outputFileName);
 }
 
+void read_riddle(char* riddle_buff) {
+    FILE* file = fopen("riddle_me_this", "r");
+    if (file == NULL) {
+        printf("Error opening file\n");
+        exit(EXIT_FAILURE);
+    }
+    while (fgets(riddle_buff, 2048, file) != NULL) {
+        int term = strlen(riddle_buff);
+        riddle_buff[term - 1] = '\0';
+    }
+}
+
 void run_hotload(char* url) {
     printf("hotload mode\n");
     printf("Loading data from %s\n", url);
@@ -94,21 +106,12 @@ void run_hotload(char* url) {
     } else {
         download_url(url);
     }
-    FILE* file = fopen("riddle_me_this", "r");
-    if (file == NULL) {
-        printf("Error opening file\n");
-        exit(EXIT_FAILURE);
-    }
-    char final_riddle[2048];
+    char riddle_buff[2048];
     for (int i = 0; i < 2048; i++) {
-        final_riddle[i] = '\0';
+        riddle_buff[i] = '\0';
     }
-    while (fgets(final_riddle, 2048, file) != NULL) {
-        int term = strlen(final_riddle);
-        final_riddle[term - 1] = '\0';
-    }
-    printf("%s\n", final_riddle);
-    
+    read_riddle(riddle_buff);
+    printf("%s\n", riddle_buff);
 }
 
 int main(int argc, char** argv) {
